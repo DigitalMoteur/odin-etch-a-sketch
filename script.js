@@ -5,6 +5,7 @@ grid.style.alignItems = "center";
 grid.style.flexDirection = "column";
 grid.style.borderStyle = "solid";
 grid.style.margin = "auto";
+grid.style.backgroundColor = "black";
 
 const buildNewGridButton = document.querySelector("#buildNewGrid");
 buildNewGridButton.style.width = "90vw";
@@ -14,6 +15,10 @@ buildNewGridButton.addEventListener('click', () => {
     let requestedAmount = parseInt(prompt("Enter the grid size (Eg. Enter 16 for a 16x16 grid.)", "16"));
     buildGrid(requestedAmount);
 });
+
+function randomColorParam() {
+    return Math.floor(Math.random() * 255);
+}
 
 function buildGrid(squaresPerDimension) {
     grid.innerHTML = '';
@@ -34,7 +39,25 @@ function buildGrid(squaresPerDimension) {
             currentElement.style.height = `${gridElementSize}px`;
             currentElement.style.width = `${gridElementSize}px`;
             currentElement.addEventListener("mouseover", (e) => {
-                e.target.style.backgroundColor = "red";
+                if (e.target.style.backgroundColor != "") {
+                    if (e.target.style.opacity == '')
+                    {
+                        e.target.style.opacity = 0.9;
+                    }
+                    else if (e.target.style.opacity > 0.0)
+                    {
+                        e.target.style.opacity -= 0.1;
+                    }
+                }
+                else {
+                    e.target.style.backgroundColor = `rgb(${
+                            randomColorParam()
+                        },${
+                            randomColorParam()
+                        },${
+                            randomColorParam()
+                        })`;
+                }
             });
             row.appendChild(currentElement);
         }
